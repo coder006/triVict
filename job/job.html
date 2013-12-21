@@ -1,0 +1,316 @@
+<html>
+<head>
+	<title>Job+</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<link type="text/css" rel="stylesheet" href="onepage-scroll.css" />
+	<link type="text/css" rel="stylesheet" href="home.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script type="text/javascript" src="jquery.onepage-scroll.js"></script>
+	<script type="text/javascript" src="jquery.onepage-scroll.min.js"></script>
+	<script type="text/javascript" src="home.js"></script>
+
+	<style type="text/css">
+		.jobs{
+			height:20%;
+			width:19%;
+			background-color:#EEE8F2;
+			list-style-type:none;
+			margin:15px;
+			display:inline-block;
+			border:3px solid black;
+			border-radius: 5px;
+		}
+		.jobs:hover{
+			cursor: pointer;
+			opacity: 0.6;
+		}
+
+		.courses{
+			height:40%;
+			width:25%;
+			background-color:#EEE8F2;
+			list-style-type:none;
+			margin:15px;
+			display:inline-block;
+			border:3px solid black;
+			border-radius: 5px;
+		}
+		.jobs:hover{
+			cursor: pointer;
+			opacity: 0.6;
+		}
+		#back:hover{
+			cursor: pointer;
+			opacity: 0.6;
+		}
+		#back2:hover{
+			cursor: pointer;
+			opacity: 0.6;
+		}
+
+
+		#front:hover{
+			cursor: pointer;
+			opacity: 0.6;
+		}
+		
+		#close-me-button:hover{
+			cursor:pointer;
+			opacity: 0.8;
+		}
+		
+		#buy-me-button:hover{
+			cursor:pointer;
+			opacity: 0.8;
+		}
+		#details{
+			box-shadow: 4px 4px 10px #888888;
+		}
+		.courses:hover{
+			cursor:pointer;
+			opacity: 0.6;
+		}
+	</style>
+	<script type="text/javascript">
+		var jobList = new Array();
+		jobList['jobAll'] = new Array( "course1","course2","course3","course4","course5","course6","course7","course8");
+		jobList['Job1'] = new Array( "course1", "course3", "course5" );
+		jobList['Job2'] = new Array( "course1","course2", "course4", "course6" );
+		jobList['Job3'] = new Array( "course1", "course2", "course3","course7","course8" );
+		jobList['Job4'] = new Array( "course3", "course4", "course5" );
+		jobList['Job5'] = new Array( "course1", "course2", "course3","course4","course5","course6" );
+		jobList['Job6'] = new Array( "course1", "course2", "course6","course7","course8" );
+		jobList['Job7'] = new Array( "course1", "course2", "course3" );
+		jobList['Job8'] = new Array( "course1", "course2", "course3","course6","course7","course8" );
+		
+
+		$(document).ready(function(){
+			$('#back').tooltip();
+			$('#back2').tooltip();
+			$('#front').tooltip();
+
+			$('.jobs').click(function(event){
+
+				var jobID = event.target.id;
+				var descritionID = document.getElementById("desc");
+				descritionID.style.fontSize = "28px";
+				descritionID.innerHTML = ""+jobID;
+				for(var i=0;i<jobList['jobAll'].length;i++)
+					$("#"+jobList['jobAll'][i]).hide();
+				for(var i=0;i<jobList[jobID].length;i++ )
+					$("#"+jobList[jobID][i]).show();
+				$(".head").moveDown();
+				
+			});
+
+			$('#back').click(function(){
+				$(".head").moveUp();
+			});
+			$('#back2').click(function(){
+				$(".head").moveUp();
+				$(".head").moveUp();
+			});
+
+			$('#front').click(function(){
+				$(".head").moveDown();
+			});
+
+			$('.courses').click(function(){
+				$('.head').fadeTo(200,0.2);
+				$("#details").show(500);
+				var courseNo = $(this).attr("id");
+				courseNo = courseNo.substr(courseNo.length - 1);
+				console.log(courseNo);
+				$("#details-bottom-div > p").html("Details about this course: Course"+courseNo);
+			});
+
+			$("#close-me-button").click(function(){
+				$(".head").fadeTo(100,1.0);
+				$("#details").hide("fast");
+
+			});
+		});
+	</script>
+</head>
+
+<body>
+
+	<div id="fb-root"></div>
+		<script>
+		  window.fbAsyncInit = function() {
+		  FB.init({
+		    appId      : '1390731031160437',
+		    status     : true, // check login status
+		    cookie     : true, // enable cookies to allow the server to access the session
+		    xfbml      : true  // parse XFBML
+		  });
+
+		  // Here we subscribe to the auth.authResponseChange JavaScript event. This event is fired
+		  // for any authentication related change, such as login, logout or session refresh. This means that
+		  // whenever someone who was previously logged out tries to log in again, the correct case below 
+		  // will be handled. 
+		  FB.Event.subscribe('auth.authResponseChange', function(response) {
+		    // Here we specify what we do with the response anytime this event occurs. 
+		    if (response.status === 'connected') {
+		      // The response object is returned with a status field that lets the app know the current
+		      // login status of the person. In this case, we're handling the situation where they 
+		      // have logged in to the app.
+		      testAPI();
+		    } else if (response.status === 'not_authorized') {
+		      // In this case, the person is logged into Facebook, but not into the app, so we call
+		      // FB.login() to prompt them to do so. 
+		      // In real-life usage, you wouldn't want to immediately prompt someone to login 
+		      // like this, for two reasons:
+		      // (1) JavaScript created popup windows are blocked by most browsers unless they 
+		      // result from direct interaction from people using the app (such as a mouse click)
+		      // (2) it is a bad experience to be continually prompted to login upon page load.
+		      FB.login();
+		    } else {
+		      // In this case, the person is not logged into Facebook, so we call the login() 
+		      // function to prompt them to do so. Note that at this stage there is no indication
+		      // of whether they are logged into the app. If they aren't then they'll see the Login
+		      // dialog right after they log in to Facebook. 
+		      // The same caveats as above apply to the FB.login() call here.
+		      FB.login();
+		    }
+		  });
+		  };
+
+		  // Load the SDK asynchronously
+		  (function(d){
+		   var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+		   if (d.getElementById(id)) {return;}
+		   js = d.createElement('script'); js.id = id; js.async = true;
+		   js.src = "//connect.facebook.net/en_US/all.js";
+		   ref.parentNode.insertBefore(js, ref);
+		  }(document));
+
+		  // Here we run a very simple test of the Graph API after login is successful. 
+		  // This testAPI() function is only called in those cases. 
+		  function testAPI() {
+		    console.log('Welcome!  Fetching your information.... ');
+		    FB.api('/me', function(response) {
+		      console.log('Good to see you, ' + response.name + '.');
+		      console.log(response.email);
+		      var userName = document.getElementById("Name");
+		      userName.innerHTML=""+response.name;
+		      //var emailID = document.getElementById("email");
+		      //emailID.innerHTML=""+response.email;
+		      console.log(userName);
+		      $("#de").show();
+		      userName.style.fontSize = "28px";
+		      //emailID.style.fontSize = "28px";
+		    });
+		  }
+		</script>
+
+
+
+
+
+	<div class="head">
+		<section>
+			<div id="header" style="height:12%;width:100%;background-color:#D72430;border: 1px solid black;margin-bottom:5px;">
+				<div style="right:5%;top:2%;position:absolute;text-align:center;">
+					<fb:login-button show-faces="true" width="50" max-rows="1"></fb:login-button>
+				</div>
+				<div id="de" style="left:5%;top:1%;position:absolute;color:#fff;font-family:'Courier New', Courier, monospace;display:none;">
+					<p id="Name" style="font-size:100px;">Name</p>
+					
+				</div>
+			</div>
+	
+			<div id="select-a-job" style="top:15%;position:absolute;height:20%;width:98.8%;">
+				<p style="font-family:'Courier New', Courier, monospace;text-align:center;font-size:300%;">Select  A  Job</p>
+			</div>
+
+
+
+			<div style="top:38%;left:14%;position:absolute;background-color:#fff;height:45%;width:70%;text-align:center;">
+				<ul>
+					<li id="Job1" class="jobs">Job 1</li>
+					<li id="Job2" class="jobs">Job 2</li>
+					<li id="Job3" class="jobs">Job 3</li>
+					<li id="Job4" class="jobs">Job 4</li>
+					<li id="Job5" class="jobs">Job 5</li>
+					<li id="Job6" class="jobs">Job 6</li>
+					<li id="Job7" class="jobs">Job 7</li>
+					<li id="Job8" class="jobs">Job 8</li>	
+
+				</ul>
+			</div>
+		</section>
+
+		<section id="sec2">
+			
+			<div id="back" style="top:19%;border-radius:50%;left:8%;position:absolute;height:55px;width:55px;border:3px solid black;text-align:center;background-color:#638AAA;" title="Go back to Jobs search">
+				<p style="top:-35%;position:absolute;"><font size="7">&larr;</font></p>
+			</div>	
+
+			<div id="front" style="top:73%;border-radius:50%;right:8%;position:absolute;height:55px;width:55px;border:3px solid black;text-align:center;background-color:#54A76D;" title="View all courses">
+				<p style="top:-35%;position:absolute;"><font size="7">&rarr;</font></p>
+			</div>
+
+			<div id="desc" style="background-color:#EEE8F2;height:20%;width:56.1%;top:6%;left:22.28%;position:absolute;border:3px solid black;border-radius: 3px;text-align:center;">
+				<p top:-2%;position:absolute;><font size="6">Job 1</font></p>				
+			</div>
+			
+			<div id="courseDiv" style="top:27%;left:14%;position:absolute;background-color:#fff;height:45%;width:70%;text-align:center;">
+				<ul class="courseList">
+					<li id="course1" class="courses">course 1</li>
+					<li id="course2" class="courses">course 2</li>
+					<li id="course3" class="courses">course 3</li>
+					<li id="course4" class="courses">course 4</li>
+					<li id="course5" class="courses">course 5</li>
+					<li id="course6" class="courses">course 6</li>
+					<li id="course7" class="courses">course 7</li>
+					<li id="course8" class="courses">course 8</li>	
+
+				</ul>
+			</div>
+		</section>
+
+		<section id="sec3">
+			
+			<div id="back2" style="top:19%;border-radius:50%;left:8%;position:absolute;height:55px;width:55px;border:3px solid black;text-align:center;background-color:#638AAA;" title="Go back to Jobs search">
+				<p style="top:-35%;position:absolute;"><font size="7">&larr;</font></p>
+			</div>	
+
+			
+			<div style="top:10%;left:14%;position:absolute;background-color:#fff;height:45%;width:70%;text-align:center;">
+				<ul class="courseList">
+					<li id="course1" class="courses">course 1</li>
+					<li id="course2" class="courses">course 2</li>
+					<li id="course3" class="courses">course 3</li>
+					<li id="course4" class="courses">course 4</li>
+					<li id="course5" class="courses">course 5</li>
+					<li id="course6" class="courses">course 6</li>
+					<li id="course7" class="courses">course 7</li>
+					<li id="course8" class="courses">course 8</li>	
+
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<div id="details" style="position:absolute;top:22%;left:28%;height:50%;width:45%;background-color:#fff;display:none;">
+		<div id="details-top-div" style="position:absolute;width:100%;background-color:#935CB8;height:25%;color:#fff;text-align:center;">
+			<p ><font size="7">Course 1</font></p>
+		</div>
+
+		<div id="details-bottom-div" style="position:absolute;text-align:center;color:black;top:28%;">
+			<p><font size="5">Details about this course</font></p>
+			
+		</div>
+		<div id="buy-me-button" style="height:15%;width:20%;background-color:#935CB8;bottom:2px;position:absolute;left:22%;text-align:center;">
+			<p style="color:#fff;"><font size="4"> <strong>Buy me!</strong></font></p>
+		</div>
+		<div id="close-me-button" style="height:15%;width:20%;background-color:#935CB8;bottom:2px;position:absolute;left:60%;text-align:center;">
+			<p style="color:#fff;"><font size="4"> <strong>Close me!</strong></font></p>
+		</div>
+	</div>
+</body>
+</html>
