@@ -196,12 +196,10 @@
 		      console.log(response.email);
 		      var userName = document.getElementById("Name");
 		      userName.innerHTML=""+response.name;
-		      //var emailID = document.getElementById("email");
-		      //emailID.innerHTML=""+response.email;
+		      window.email = response.email;
 		      console.log(userName);
 		      $("#de").show();
 		      userName.style.fontSize = "28px";
-		      //emailID.style.fontSize = "28px";
 		    });
 		  }
 		</script>
@@ -254,7 +252,7 @@
 			</div>
 
 			<div id="desc" style="background-color:#EEE8F2;height:20%;width:56.1%;top:6%;left:22.28%;position:absolute;border:3px solid black;border-radius: 3px;text-align:center;">
-				<p top:-2%;position:absolute;><font size="6">Job 1</font></p>				
+				<p top:-2%;position:absolute;><font size="6">All Courses</font></p>				
 			</div>
 			
 			<div id="courseDiv" style="top:27%;left:14%;position:absolute;background-color:#fff;height:45%;width:70%;text-align:center;">
